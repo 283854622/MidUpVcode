@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+{#        创建鼠标点击验证码事件#}
+        $(function () {
+{#            创建id为vcode的鼠标点击时间#}
+            $('#vcode').click(function () {
+{#                    当点击这个标签时，其属性src会自动生成数字添加到后缀中，以此来重新生成新的验证码#}
+                    $(this).attr('src','/myapp/getvcode'+Math.random())
+            })
+        })
+    </script>
+
+
+</head>
+<body>
+<form action="{% url 'myapp:login' %}" method="post">
+    {% csrf_token %}
+    <input type="text" placeholder="请输入用户名" name="uname"><br>
+    <input type="password" placeholder="请输入用户密码" name="upwd"><br>
+    
+
+    <img src="/myapp/getvcode/" id="vcode"><br>
+    <input type="text" placeholder="请输入验证码" name="vcode"><br>
+    <input type="submit" value="登录"><br>
+</form>
+</body>
+</html>
